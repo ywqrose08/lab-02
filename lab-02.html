@@ -443,7 +443,7 @@ plastic_data_all &lt;- plastic_data_all %&gt;%
 
 plastic_data_all %&gt;%
   group_by(region) %&gt;%
-  summarise(avg = mean(total_mismanage_plastic)) %&gt;%
+  summarise(avg = mean(total_mismanage_plastic, na.rm = TRUE)) %&gt;%
   arrange(desc(avg))</code></pre>
 <pre><code>## # A tibble: 6 × 2
 ##   region                               avg

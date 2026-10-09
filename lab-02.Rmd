@@ -96,7 +96,7 @@ plastic_data_all <- plastic_data_all %>%
 
 plastic_data_all %>%
   group_by(region) %>%
-  summarise(avg = mean(total_mismanage_plastic)) %>%
+  summarise(avg = mean(total_mismanage_plastic, na.rm = TRUE)) %>%
   arrange(desc(avg))
 
 ```
