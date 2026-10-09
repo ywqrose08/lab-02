@@ -421,7 +421,19 @@ plastic_data_all %&gt;% head(n = 10)</code></pre>
 <h2>Exercises</h2>
 <div id="ex-1." class="section level3">
 <h3>Ex 1.</h3>
-<pre class="r"><code># Write your code here to answer exercise 1</code></pre>
+<pre class="r"><code># Write your code here to answer exercise 1
+plastic_data_all %&gt;%
+  count(region) %&gt;%
+  arrange(desc(n))</code></pre>
+<pre><code>## # A tibble: 6 × 2
+##   region                              n
+##   &lt;chr&gt;                           &lt;int&gt;
+## 1 Africa                             43
+## 2 Asia                               39
+## 3 Latin America and The Caribbean    34
+## 4 Europe                             31
+## 5 Oceania                            10
+## 6 North America                       2</code></pre>
 </div>
 <div id="ex-2." class="section level3">
 <h3>Ex 2.</h3>
