@@ -376,7 +376,8 @@ data2 &lt;- read_csv2(&quot;data/per-capita-ocean-plastic-waste.txt&quot;)
 data3 &lt;- read_tsv(&quot;data/UN_country_population.tsv&quot;)
 
 
-# Member 3 (pair 2) write code to load File 4 data here:</code></pre>
+# Member 3 (pair 2) write code to load File 4 data here:
+data4 &lt;- read_excel(&quot;data/UN_country_region.xlsx&quot;)</code></pre>
 <pre class="r"><code># Member 2 (pair 1) write code to create object &#39;plastic_data_all&#39;:
 plastic_data_all &lt;- data1
 
@@ -395,22 +396,26 @@ plastic_data_all &lt;- data3 %&gt;%
 
 
 
-# Member 3 (pair 2) write code to join your data to &#39;plastic_data_all&#39;:</code></pre>
+# Member 3 (pair 2) write code to join your data to &#39;plastic_data_all&#39;:
+plastic_data_all &lt;- data4 %&gt;%
+  select(-name) %&gt;%
+  right_join(plastic_data_all, by = &quot;code&quot;)</code></pre>
 <pre class="r"><code># Member 2 (pair 1) adds code here to view the first 10 rows of &#39;plastic_data_all&#39;
 plastic_data_all %&gt;% head(n = 10)</code></pre>
-<pre><code>## # A tibble: 10 × 5
-##    code  population mismanaged_plastic_ocean name       mismanaged_plastic
-##    &lt;chr&gt;      &lt;dbl&gt;                    &lt;dbl&gt; &lt;chr&gt;                   &lt;dbl&gt;
-##  1 COM         784.                  0       Comoros                69.5  
-##  2 DJI        1066.                  0.00411 Djibouti               10.6  
-##  3 ERI        3474.                  0.0137  Eritrea                24.0  
-##  4 KEN       50443.                  0.00493 Kenya                   5.51 
-##  5 MDG       27187.                  0.0287  Madagascar              0.936
-##  6 MUS        1296.                  0       Mauritius               0.235
-##  7 MOZ       29850.                  0.0838  Mozambique             14.3  
-##  8 REU         945.                  0       Reunion                 0.262
-##  9 SYC         104.                  0       Seychelles              0.337
-## 10 SOM       15690.                  0       Somalia                 0</code></pre>
+<pre><code>## # A tibble: 10 × 6
+##    code  region       population mismanaged_plastic_o…¹ name  mismanaged_plastic
+##    &lt;chr&gt; &lt;chr&gt;             &lt;dbl&gt;                  &lt;dbl&gt; &lt;chr&gt;              &lt;dbl&gt;
+##  1 AGO   Africa          31808.                 0.0270  Ango…              7.45 
+##  2 ALB   Europe           2876.                 0.543   Alba…             24.2  
+##  3 ARE   Asia             9176.                 0.00143 Unit…              0.526
+##  4 ARG   Latin Ameri…    44583.                 0.0924  Arge…             10.4  
+##  5 ATG   Latin Ameri…       91.9                0.0206  Anti…              6.46 
+##  6 AUS   Oceania         25170.                 0.00127 Aust…              0.209
+##  7 BEL   Europe          11480.                 0.00295 Belg…              0.198
+##  8 BEN   Africa          12114.                 0.139   Benin             11.3  
+##  9 BFA   Africa          20671.                 0       Burk…             15.6  
+## 10 BGD   Asia           164605.                 0.151   Bang…              6.27 
+## # ℹ abbreviated name: ¹​mismanaged_plastic_ocean</code></pre>
 </div>
 <div id="exercises" class="section level2">
 <h2>Exercises</h2>
