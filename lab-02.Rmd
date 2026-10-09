@@ -17,7 +17,7 @@ library(readxl)
 
 ```{r load-data, message = FALSE}
 # Member 2 (pair 1) write code to load File 1 data here:
-
+data1 <- read_csv("data/mismanaged-plastic-waste-per-capita.csv")
 
 
 # Member 4 (pair 2) write code to load File 2 data here:
@@ -38,7 +38,7 @@ library(readxl)
 
 ```{r join-data, message = FALSE}
 # Member 2 (pair 1) write code to create object 'plastic_data_all':
-
+plastic_data_all <- data1
 
 
 
@@ -61,7 +61,7 @@ library(readxl)
 
 ```{r print-data, message = FALSE}
 # Member 2 (pair 1) adds code here to view the first 10 rows of 'plastic_data_all'
-
+plastic_data_all %>% head(n = 10)
 
 
 ```
