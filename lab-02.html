@@ -11,7 +11,7 @@
 
 <meta name="author" content="Team Name: Evelyn, Sylvie, Yulong, Yuran Zhang" />
 
-<meta name="date" content="2026-10-09" />
+<meta name="date" content="2026-10-10" />
 
 <title>Lab 02 - Global plastic waste</title>
 
@@ -352,7 +352,7 @@ display: none;
 
 <h1 class="title toc-ignore">Lab 02 - Global plastic waste</h1>
 <h4 class="author">Team Name: Evelyn, Sylvie, Yulong, Yuran Zhang</h4>
-<h4 class="date">2026-10-09</h4>
+<h4 class="date">2026-10-10</h4>
 
 </div>
 
@@ -457,11 +457,76 @@ plastic_data_all %&gt;%
 </div>
 <div id="ex-3." class="section level3">
 <h3>Ex 3.</h3>
-<pre class="r"><code># Write your code here to answer exercise 3</code></pre>
+<pre class="r"><code># Write your code here to answer exercise 3
+plastic_data_all &lt;- plastic_data_all %&gt;% 
+  mutate(pct_mismanaged_plastic_ocean = mismanaged_plastic_ocean / mismanaged_plastic) %&gt;%
+  drop_na(pct_mismanaged_plastic_ocean)
+  
+plastic_data_all %&gt;% 
+  group_by(region) %&gt;%
+  summarise(median_pct=median(pct_mismanaged_plastic_ocean, na.rm = TRUE)) %&gt;%
+  arrange(median_pct)</code></pre>
+<pre><code>## # A tibble: 6 × 2
+##   region                          median_pct
+##   &lt;chr&gt;                                &lt;dbl&gt;
+## 1 Africa                             0.00526
+## 2 Europe                             0.00846
+## 3 North America                      0.00959
+## 4 Asia                               0.00974
+## 5 Oceania                            0.0158 
+## 6 Latin America and The Caribbean    0.0307</code></pre>
+<pre class="r"><code>plastic_data_all %&gt;%
+  filter(code == &quot;SOM&quot;) </code></pre>
+<pre><code>## # A tibble: 0 × 8
+## # ℹ 8 variables: code &lt;chr&gt;, region &lt;chr&gt;, population &lt;dbl&gt;,
+## #   mismanaged_plastic_ocean &lt;dbl&gt;, name &lt;chr&gt;, mismanaged_plastic &lt;dbl&gt;,
+## #   total_mismanage_plastic &lt;dbl&gt;, pct_mismanaged_plastic_ocean &lt;dbl&gt;</code></pre>
 </div>
 <div id="ex-4." class="section level3">
 <h3>Ex 4.</h3>
-<pre class="r"><code># Write your code here to answer exercise 4</code></pre>
+<pre class="r"><code># Write your code here to answer exercise 4
+plastic_data_all &lt;- plastic_data_all %&gt;%
+  rename(pop = population,
+         mpo = mismanaged_plastic_ocean,
+         mp = mismanaged_plastic,
+         tmp = total_mismanage_plastic,
+         pmpo = pct_mismanaged_plastic_ocean
+)
+
+plastic_data_all %&gt;%
+  mutate(region = str_replace_all(region, &quot;Latin America and The Caribbean&quot;, &quot;LAC&quot;))</code></pre>
+<pre><code>## # A tibble: 158 × 8
+##    code  region       pop     mpo name                     mp      tmp    pmpo
+##    &lt;chr&gt; &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;                 &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;
+##  1 AGO   Africa   31808.  0.0270  Angola                7.45   236821. 0.00363
+##  2 ALB   Europe    2876.  0.543   Albania              24.2     69703. 0.0224 
+##  3 ARE   Asia      9176.  0.00143 United Arab Emirates  0.526    4822. 0.00273
+##  4 ARG   LAC      44583.  0.0924  Argentina            10.4    463744. 0.00888
+##  5 ATG   LAC         91.9 0.0206  Antigua and Barbuda   6.46      594. 0.00319
+##  6 AUS   Oceania  25170.  0.00127 Australia             0.209    5259. 0.00608
+##  7 BEL   Europe   11480.  0.00295 Belgium               0.198    2272. 0.0149 
+##  8 BEN   Africa   12114.  0.139   Benin                11.3    136872. 0.0123 
+##  9 BFA   Africa   20671.  0       Burkina Faso         15.6    322769. 0      
+## 10 BGD   Asia    164605.  0.151   Bangladesh            6.27  1031765. 0.0241 
+## # ℹ 148 more rows</code></pre>
+<pre class="r"><code>plastic_data_all %&gt;%
+  group_by(region) %&gt;%
+  summarise(total_pop = sum(pop,na.rm = TRUE),
+            total_mpo = sum(mpo,na.rm = TRUE),
+            total_mp = sum(mp,na.rm = TRUE),
+            total_tmp = sum(tmp,na.rm = TRUE),
+            total_pmpo = sum(pmpo,na.rm = TRUE)
+            ) %&gt;%
+  arrange(total_pop)</code></pre>
+<pre><code>## # A tibble: 6 × 6
+##   region                       total_pop total_mpo total_mp total_tmp total_pmpo
+##   &lt;chr&gt;                            &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
+## 1 Oceania                         41586.    1.31      46.3    145766.     0.255 
+## 2 North America                  370538.    0.0137     1.44   294380.     0.0192
+## 3 Latin America and The Carib…   613988.   18.6      435.    6577315.     1.41  
+## 4 Europe                         682928.    0.753     69.7   1183580.     0.326 
+## 5 Africa                        1001170.    4.34     573.   13791329.     0.471 
+## 6 Asia                          4465069.    8.56     250.   40016313.     1.23</code></pre>
 </div>
 </div>
 
